@@ -1,0 +1,45 @@
+import {createRouter, createWebHistory, type RouteRecordRaw} from "vue-router";
+
+import PagLogin from "../views/PagLogin/PagLogin.vue";
+import RecoverPassword from "../views/RecoverPassword/RecoverPassword.vue";
+import HomePage from "../views/HomePage/HomePage.vue";
+import NewUser from "../views/NewUser/NewUser.vue";
+
+
+
+
+const routes: RouteRecordRaw[] = [
+
+    {
+        path: "/",
+        name: "Página de login",
+        component: PagLogin
+    },
+
+    {
+        path: "/Novo-Usuario",
+        name: "Novo-Usuario",
+        component: NewUser
+    },
+
+    {
+        path: "/Recuperar-Senha",
+        name: "Recuperar-Senha",
+        component: RecoverPassword
+    },
+
+    {
+        path: "/Pagina-Principal",
+        name: "Pagina-Principal",
+        component: HomePage
+    }
+    
+]
+
+//Utilizar ladz loading no componentes filhos da homepage
+
+const router = createRouter({
+    history: createWebHistory(), routes
+})
+
+export default router
