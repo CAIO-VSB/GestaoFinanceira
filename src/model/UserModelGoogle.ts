@@ -1,5 +1,6 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../db/auth-firebase";
+import { auth } from "../firebase/firebaseConfig";
+
 
 export class UsuarioGoogle {
     

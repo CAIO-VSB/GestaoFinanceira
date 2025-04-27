@@ -53,7 +53,6 @@
 <script setup lang="ts">
 
     import { ref } from 'vue';
-    import { ControllerLogin } from '../controller/ControllerLogin';
     import { ElMessageBox } from 'element-plus'
     import router from "../router/router";
 
@@ -101,41 +100,12 @@
 
             loading.value = false;
 
-           const result = await ControllerLogin.signEmailESenha(inputEmail.value, inputPassword.value);
-
-           if (result) {
-                router.push({name: "Pagina-Principal"})
-           } else {
-                console.log("Usuário naõ encontrado...")
-           }
-
         } catch (error) {
             console.log("Erro ao validar com user e password" + error)
         }
     }
 
-    async function SubmitGoogle() {
 
-        try {
-            loading.value = true
-
-            const sucess = await ControllerLogin.signGoolge();
-
-            loading.value = false
-
-            if (sucess) {
-                console.log("Autenticação bem-sucedida, redirecionado...")
-                router.push({name: "Pagina-Principal"})
-            } else {
-                console.log("Autenticação falhou")
-                alert("Erro ao validar com google")   
-            }
-
-        } catch (error) {
-            console.log("Erro inesperado" + error)
-            alert("Erro não programado")
-        }
-    }
 
 </script>
 

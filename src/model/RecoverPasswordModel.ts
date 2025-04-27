@@ -1,5 +1,6 @@
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../db/auth-firebase";
+import { auth } from "../firebase/firebaseConfig";
+
 
 export class RecoverPassword {
     private email: string;

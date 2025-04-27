@@ -65,15 +65,15 @@
 
 <script setup lang="ts">
 
-    import { ref } from 'vue';
-    import { ControllerLogin } from '../controller/ControllerLogin';
+    import { ref } from 'vue'
     import { ElMessageBox, ElMessage} from 'element-plus'
-    import router from "../router/router";
+    import router from "../router/router"
+    import { ControllerLogin } from '../controller/ControllerLogin'
 
 
-    const loading = ref(false);
-    const inputEmail = ref("");
-    const inputPassword = ref("");
+    const loading = ref(false)
+    const inputEmail = ref("")
+    const inputPassword = ref("")
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     function validData(): boolean {
@@ -142,12 +142,13 @@
         try {
             loading.value = true;
 
-           const result = await ControllerLogin.signEmailESenha(inputEmail.value, inputPassword.value);
+            const result = await ControllerLogin.signEmailESenha(inputEmail.value, inputPassword.value) 
 
            if (result) {
                 router.push({name: "Pagina-Principal"})
            } else {
-                console.log("Usuário naõ encontrado...")
+                alert("Usuário não encontrado")
+                console.log("Usuário não encontrado...")
            }
 
         } catch (error) {
@@ -155,6 +156,7 @@
             console.log("Erro ao validar com user e password" + error)
             
         } finally {
+
             loading.value = false;
         }
     }
@@ -163,10 +165,10 @@
 
         try {
             loading.value = true
+        
+            const result = await ControllerLogin.signGoolge()
 
-            const sucess = await ControllerLogin.signGoolge();
-
-            if (sucess) {
+            if (result) {
                 console.log("Autenticação bem-sucedida, redirecionado...")
                 router.push({name: "Pagina-Principal"})
             } else {
@@ -176,7 +178,7 @@
 
         } catch (error) {
             console.log("Erro inesperado" + error)
-            ElMessageBox.alert("Erro não programado. Se o erro persistir, contato o suporte técnico.", "Alerta de erro")  
+            ElMessageBox.alert("Erro não programado. Se o erro persistir, contate o suporte técnico.", "Alerta de erro")  
         }finally {
             loading.value = false
         }

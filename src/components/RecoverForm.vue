@@ -42,7 +42,7 @@
 
     import {  ref } from 'vue';
     import { ElMessageBox, ElMessage} from 'element-plus'
-    import { ControllerRecoverPassword } from '../controller/ControllerRecoverPassword';
+  
 
     const inputEmail = ref("");
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
