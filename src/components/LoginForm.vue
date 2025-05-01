@@ -198,7 +198,6 @@
             loading.value = false
         }
     }
-
 </script>
 
 <style src="/src/views/PagLogin/PagLogin.css" scoped>
