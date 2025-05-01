@@ -54,14 +54,12 @@
 
     import { ref } from 'vue';
     import { ElMessageBox } from 'element-plus'
-    import router from "../router/router";
-
-
-    const loading = ref(false);
-    const inputEmail = ref("");
-    const inputPassword = ref("");
+   
+    const loading = ref(false)
+    const inputEmail = ref("")
+    const inputPassword = ref("")
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const inputConfirmPassword = ref("");
+    const inputConfirmPassword = ref("")
 
     function validData(): boolean {
 

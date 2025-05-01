@@ -4,6 +4,7 @@ import PagLogin from "../views/PagLogin/PagLogin.vue";
 import RecoverPassword from "../views/RecoverPassword/RecoverPassword.vue";
 import HomePage from "../views/HomePage/HomePage.vue";
 import NewUser from "../views/NewUser/NewUser.vue";
+import Teste from "../components/teste.vue";
 
 
 
@@ -32,6 +33,11 @@ const routes: RouteRecordRaw[] = [
         path: "/Pagina-Principal",
         name: "Pagina-Principal",
         component: HomePage
+    },
+    {
+        path: "/teste",
+        name: "teste",
+        component: Teste
     }
     
 ]

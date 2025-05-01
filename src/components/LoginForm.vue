@@ -1,75 +1,90 @@
-
 <template>
 
-    <form @submit.prevent="SubmitDados">
+    <main class="login__main">
+        
+        <div class="login__container">
 
-        <div class="login__form-group"> 
-        <!--div que controla os forms itens-->
+            <div>
+                <h2 class="login__title">Acesso ao sistema</h2>
+            </div>
 
-        <div class="login__form-item">
-            <q-input class="login__input-email" outlined  v-model="inputEmail" label="Insira seu e-mail" 
-            autocomplete="email"
-            name="email"
-            title="Insira um e-mail válido"
-            />
-        </div>
+            <div class="login__welcome">
+                <h3 class="login__subtitle">Seja bem-vindo!</h3>
+                <p class="login__description">Insira suas credenciais logo abaixo</p>
+            </div>
 
-        <div class="login__form-item">
-            <q-input class="login__input-password" outlined type="password" v-model="inputPassword" label="Insira sua senha" 
-            autocomplete="password"
-            name="password"
-            title="Insira uma senha de 6 dígitos "
-            />
-        </div>
+            <form @submit.prevent="SubmitDados">
 
-        <div class="login__form-button">
-            <q-btn 
-            style="padding: 10px; width: 100%;" color="primary" label="Acessar o sistema" @click="SubmitDados"
-            :loading="loading"
-            >
-    
-            <template #loading>
-                <q-spinner-hourglass
-                color="white"
-                size="1.5em"
+            <div class="login__form-group"> 
+            <!--div que controla os forms itens-->
+
+            <div class="login__form-item">
+                <q-input class="login__input-email" outlined  v-model="inputEmail" label="Insira seu e-mail" 
+                autocomplete="email"
+                name="email"
+                title="Insira um e-mail válido"
                 />
-            </template>
+            </div>
+
+            <div class="login__form-item">
+                <q-input class="login__input-password" outlined type="password" v-model="inputPassword" label="Insira sua senha" 
+                autocomplete="password"
+                name="password"
+                title="Insira uma senha de 6 dígitos "
+                />
+            </div>
+
+            <div class="login__form-button">
+                <q-btn 
+                style="padding: 10px; width: 100%;" color="primary" label="Entrar" @click="SubmitDados"
+                :loading="loading"
+                >
+
+                <template #loading>
+                    <q-spinner-hourglass
+                    color="white"
+                    size="1.5em"
+                    />
+                </template>
+                
+                </q-btn>
+            </div>
+
+            <div class="login__extras">
+                <span>Esqueceu sua senha? <router-link style="text-decoration: none;" to="Recuperar-Senha">Recupere aqui</router-link></span>
+
+                <span>Sem acesso? <router-link style="text-decoration: none;" to="Recuperar-Senha">Crie agora</router-link></span>
+            </div>
+
+            <div class="login__extras--title-outras-formas">
+                <span>Outras formas de login</span>
+            </div>
+
+            <div class="login__extras--goolge">
+                <button @click="SubmitGoogle" type="button" class="login__bnt--google">
+                    <img class="login__img--goolge" src="/src/assets/google-icon.svg">
+                    <span>Google</span>
+                </button>
+            </div>
+        </div>
+
+        </form>
             
-            </q-btn>
-
+        </div>   
+        <div class="login__right-side ">
+            <h2 class="">Controle total das suas finanças em um só lugar</h2>
+            <h3>Organize, acompanhe e alcance seus objetivos financeiros com praticidade.</h3>
         </div>
 
-        <div class="login__extras">
-            <span>Esqueceu a senha? <router-link to="Recuperar-Senha"><el-link type="primary">Recupere aqui</el-link></router-link> </span>
-            <span>Sem acesso? <router-link to="Novo-Usuario"><el-link type="primary">Clique aqui</el-link></router-link></span>
-        </div>
-
-        <div class="login__extras--span-login-alternativo">
-            <span>Ou faça login com o Google</span>
-        </div>
-
-        <div class="login__extras--login-google">
-            <button type="button" @click="SubmitGoogle" class="login__button-google">
-                <img class="login__icon-goolge" src="/src/assets/google-icon.svg" alt="">
-                <span class="login__span-google">Continuar com google</span>
-            </button>
-        </div>
-
-        <div class="login__footer">
-            <footer>©Caio Vinicius. Todos os direitos reservados.</footer>
-        </div>
-        </div>
-
-    </form>
+    </main>  
+     
 </template>
 
 <script setup lang="ts">
-
     import { ref } from 'vue'
     import { ElMessageBox, ElMessage} from 'element-plus'
     import router from "../router/router"
     import { ControllerLogin } from '../controller/ControllerLogin'
-
 
     const loading = ref(false)
     const inputEmail = ref("")
@@ -186,5 +201,6 @@
 
 </script>
 
+<style src="/src/views/PagLogin/PagLogin.css" scoped>
 
-<style src="/src/views/PagLogin/PagLogin.css" scoped></style>
+</style>

@@ -1,39 +1,34 @@
-
 <template>
-
     <form @submit.prevent="SubmitDados">
-
         <div class="recover__form-group"> 
-        <!--div que controla os forms itens-->
-
-        <div class="recover__form-item">
-            <q-input class="recover__input-email" outlined  v-model="inputEmail" label="Insira seu e-mail" 
-            autocomplete="email"
-            name="email"
-            title="Insira seu e-mail aqui"
-            />
-        </div>
-
-        <div class="recover__form-button">
-
-            <q-btn 
-            style="padding: 10px; width: 100%;"
-            color="primary" label="Recuperar Senha"
-            @click="SubmitDados"
-            :loading="loading"
-            >
-        
-            <template #loading>
-                <q-spinner-hourglass
-                color="white"
-                size="1.5em"
+            <div class="recover__form-item">
+                <q-input class="recover__input-email" outlined v-model="inputEmail" label="Insira seu e-mail" 
+                    autocomplete="email"
+                    name="email"
+                    title="Insira seu e-mail aqui"
+                    :rules="[val => !!val || 'Campo obrigatório' ]"
                 />
-            </template>
-        
-        </q-btn>
+            </div>
 
-        </div>
+            <div class="bg-green-500 p-10 text-white text-lg">
+            Teste Tailwind funcionando?
+            </div>
 
+            <div class="recover__form-button">
+                <q-btn 
+                    style="padding: 10px; width: 100%;"
+                    color="primary" label="Recuperar Senha"
+                    @click="SubmitDados"
+                    :loading="loading"
+                >
+                    <template #loading>
+                        <q-spinner-hourglass
+                            color="white"
+                            size="1.5em"
+                        />
+                    </template>
+                </q-btn>
+            </div>
         </div>
     </form>
 </template>
@@ -42,12 +37,11 @@
 
     import {  ref } from 'vue';
     import { ElMessageBox, ElMessage} from 'element-plus'
-  
+    import { ControllerRecoverPassword } from '../controller/ControllerRecoverPassword';
 
     const inputEmail = ref("");
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const loading = ref(false);
-
 
     function validData(): boolean {
 
