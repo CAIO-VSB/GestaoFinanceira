@@ -11,5 +11,8 @@ export default defineConfig({
     }),
     tailwindcss(),
     quasar(),
-  ]
+  ],
+  server: {
+    host: true
+  }
 })

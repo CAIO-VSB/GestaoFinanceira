@@ -10,10 +10,6 @@
                 />
             </div>
 
-            <div class="bg-green-500 p-10 text-white text-lg">
-            Teste Tailwind funcionando?
-            </div>
-
             <div class="recover__form-button">
                 <q-btn 
                     style="padding: 10px; width: 100%;"
@@ -52,7 +48,7 @@
                     if (action === "confirm") {
                         ElMessage({
                             type: "error",
-                            message: "Campo 'E-mail' inváldo. Tente novamente",
+                            message: "Campo 'E-mail' inváldo. Tente novamente!",
                             duration: 5000
                         })
                     }

@@ -10,23 +10,40 @@
             autocomplete="email"
             name="email"
             title="Insira um e-mail válido"
+            :rules="[val => !!val || 'Campo obrigatório']"
             />
         </div>
 
         <div class="create-user__form-item">
-            <q-input class="create-user__input-password" outlined type="password" v-model="inputPassword" label="Insira sua senha" 
+            <q-input class="create-user__input-password" outlined :type="isPwd ? 'password' : 'text'" v-model="inputPassword" label="Insira sua senha" 
             autocomplete="password"
             name="password"
-            title="Insira uma senha de 6 dígitos "
-            />
+            title="Insira uma senha de 6 dígitos"
+            hint="Mínimo 6 caracteres"
+            :rules="[val => !!val || 'Campo obrigatório']"
+            >
+            <template v-slot:append>
+                    <q-icon style="cursor: pointer;" :name="isPwd ? 'visibility_off' : 'visibility'"
+                    @click="isPwd = !isPwd"
+                    />
+                </template>
+            </q-input>   
         </div>
 
         <div class="create-user__form-item">
-            <q-input class="create-user__input-confirm-password" outlined type="password" v-model="inputConfirmPassword" label="Repita a senha" 
+            <q-input class="create-user__input-confirm-password" outlined :type="isPwd ? 'password' : 'text'" v-model="inputConfirmPassword" label="Repita a senha" 
             autocomplete="password"
             name="password"
             title="Repita sua senha"
-            />
+            hint="Mínimo 6 caracteres"
+            :rules="[val => !!val || 'Campo obrigatório']"
+            >
+            <template v-slot:append>
+                    <q-icon style="cursor: pointer;" :name="isPwd ? 'visibility_off' : 'visibility'"
+                    @click="isPwd = !isPwd"
+                    />
+                </template>
+            </q-input>   
         </div>
 
         <div class="create-user__form-button">
@@ -60,23 +77,28 @@
     const inputPassword = ref("")
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const inputConfirmPassword = ref("")
+    const isPwd = ref(true)
 
     function validData(): boolean {
 
         if (!inputEmail.value.trim() || !inputPassword.value.trim()) {
-            ElMessageBox.alert("Faltam informações obrigatórias.", "Atenção")
+            ElMessageBox.alert("Verifique os campos e tente novamente", "Atenção")
             return false
         }
 
         if (!regexEmail.test(inputEmail.value)) {
             ElMessageBox.alert("Insira um e-mail válido", "Atenção", {
-                customClass: "bg-button"
             })
             return false
         }
 
         if (inputPassword.value.length < 6) {
             ElMessageBox.alert("Insira uma senha válida. Minímo 6 caracteres", "Atenção")
+            return false
+        }
+
+        if (inputPassword.value !== inputConfirmPassword.value) {
+            ElMessageBox.alert("As senha não conferem", "Atenção")
             return false
         }
 

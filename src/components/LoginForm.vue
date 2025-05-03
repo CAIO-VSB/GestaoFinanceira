@@ -9,8 +9,8 @@
             </div>
 
             <div class="login__welcome">
-                <h3 class="login__subtitle">Seja bem-vindo!</h3>
-                <p class="login__description">Insira suas credenciais logo abaixo</p>
+                <h3 class="login__subtitle">Bem-vindo de volta</h3>
+                <p class="login__description">Acesse sua conta para continuar</p>
             </div>
 
             <form @submit.prevent="SubmitDados">
@@ -23,15 +23,26 @@
                 autocomplete="email"
                 name="email"
                 title="Insira um e-mail válido"
+                :rules="[val => !!val || 'Campo obrigatório']"
+                clearable
                 />
             </div>
 
             <div class="login__form-item">
-                <q-input class="login__input-password" outlined type="password" v-model="inputPassword" label="Insira sua senha" 
+            <q-input class="login__input-password" outlined :type="isPwd ? 'password' : 'text'" v-model="inputPassword" label="Insira sua senha" 
                 autocomplete="password"
                 name="password"
-                title="Insira uma senha de 6 dígitos "
-                />
+                title="Insira uma senha de 6 dígitos"
+                hint="Mínimo de 6 caracteres"
+                :rules="[val => !!val || 'Campo obrigatório']"
+                >
+
+                <template v-slot:append>
+                    <q-icon style="cursor: pointer;" :name="isPwd ? 'visibility_off' : 'visibility'"
+                    @click="isPwd = !isPwd"
+                    />
+                </template>
+            </q-input>   
             </div>
 
             <div class="login__form-button">
@@ -53,7 +64,10 @@
             <div class="login__extras">
                 <span>Esqueceu sua senha? <router-link style="text-decoration: none;" to="Recuperar-Senha">Recupere aqui</router-link></span>
 
-                <span>Sem acesso? <router-link style="text-decoration: none;" to="Recuperar-Senha">Crie agora</router-link></span>
+                <div>
+                    <q-checkbox @click="teste" v-model="valueLembrarMim" />
+                    <span>Lembrar de mim</span>
+                </div>
             </div>
 
             <div class="login__extras--title-outras-formas">
@@ -66,14 +80,28 @@
                     <span>Google</span>
                 </button>
             </div>
+            <div class="login__extras--criar-conta">
+              <span>Sem acesso? <router-link style="text-decoration: none;" to="Novo-Usuario">Crie agora</router-link></span>
+            </div>
         </div>
 
         </form>
             
         </div>   
-        <div class="login__right-side ">
-            <h2 class="">Controle total das suas finanças em um só lugar</h2>
-            <h3>Organize, acompanhe e alcance seus objetivos financeiros com praticidade.</h3>
+        <div class="login__right-side">
+            <div class="login__div-img">
+                <img class="login__img-right" src="/src/assets/img-financa-side.png" alt="">    
+            </div>
+            <h2>Tenha controle total das suas finanças</h2>
+            <div class="login__scroll-infinite">
+                <h5>Gerencie seus gastos ✅</h5>
+                <h5>Acompanhe seus lançamentos ✅</h5>
+                <h5>Alcance seus objetivos financeiros com facilidade ✅</h5>
+                
+                <h5>Gerencie seus gastos ✅</h5>
+                <h5>Acompanhe seus lançamentos ✅</h5>
+                <h5>Alcance seus objetivos financeiros com facilidade ✅</h5>
+            </div>
         </div>
 
     </main>  
@@ -86,60 +114,44 @@
     import router from "../router/router"
     import { ControllerLogin } from '../controller/ControllerLogin'
 
+
     const loading = ref(false)
     const inputEmail = ref("")
     const inputPassword = ref("")
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const valueLembrarMim = ref(null)
+    const isPwd = ref(true)
+
+    function teste() {
+        alert("Testando 123")
+    }
 
     function validData(): boolean {
 
-        if (!inputEmail.value.trim() || !inputPassword.value.trim()) {
-            ElMessageBox.alert("Faltam informações obrigatórias.", "Atenção", {
+        if (!inputEmail.value.trim() && !inputPassword.value.trim()) {
+            ElMessageBox.alert("Verifique os campos e tente novamente", "Atenção", {
                 confirmButtonText: "Entendi",
                 callback: (action: string) => {
                     if (action === "confirm") {
                         ElMessage({
-                            type: "error",
-                            message: "Campo e-mail ou senha obrigatórios. Tente novamente",
+                            type: "warning",
+                            message: "Campo obrigatório vazio",
                             duration: 5000
                         })
                     }
                 }
             })
 
-            return false;
+            return false
         }
 
         if (!regexEmail.test(inputEmail.value)) {
-            ElMessageBox.alert("Insira um e-mail válido", "Atenção", {
-                confirmButtonText: "Entendi",
-                callback: (action: string) => {
-                    if (action === "confirm") {
-                        ElMessage({
-                            type: "error",
-                            message: "Campo 'E-mail' inváldo. Tente novamente",
-                            duration: 5000
-                        })
-                    }
-                }
-            })
-            
+            ElMessageBox.alert("Insira um e-mail válido. Ex.: exemplo@gmail.com")       
             return false
         }
 
         if (inputPassword.value.length < 6) {
-            ElMessageBox.alert("Insira uma senha válida. Minímo 6 caracteres", "Atenção", {
-                confirmButtonText: "Entendi",
-                callback: (action: string) => {
-                    if (action === "confirm") {
-                        ElMessage({
-                            type: "error",
-                            message: "Minímo 6 caracteres. Esqueceu sua senha?",
-                            duration: 5000
-                        })
-                    }
-                }
-            })
+            ElMessageBox.alert("A senha deve conter no mínimo 6 caracteres") 
             return false
         }
 

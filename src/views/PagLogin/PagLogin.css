@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-@import "tailwindcss";
 
 * {
     padding: 0;
@@ -8,6 +7,7 @@
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
 }
+
 
 .login__main {
     width: 100%;
@@ -49,19 +49,94 @@
     width: 100%;
     max-width: 700px;
     height: auto;
-    min-height: 750px;
+    min-height: 849px;
     border-radius: 0 20px 20px 0;
-    background-color: #E0F2FE;
+    background: linear-gradient(135deg, #f8faff 0%, #f1f5ff 100%);
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    overflow: hidden;
+    position: relative;
+    padding: 2rem;
 }
 
-.login__img-right-side {
-    height: auto;
-    min-height: 750px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    border-radius: 0 20px 20px 0;
+.login__img-right {
+    max-width: 420px;
+    min-height: 420px;
+    width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.login__img-right:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.login__div-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+}
+
+.login__right-side>h2 {
+    padding: 0 2rem;
+    font-size: 2.5rem;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    margin-top: -2.5rem;
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.3;
+}
+
+.login__right-side >h5 {
+    padding: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+}
+
+.login__scroll-infinite {
+    padding: 20px;
+    display: flex;
+    gap: 3rem;
+    white-space: nowrap;
+    animation: marquee 25s linear infinite;
+    will-change: transform;
+}
+
+.login__scroll-infinite h5 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.9;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.login__scroll-infinite h5:hover {
+    color: #3498db;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-300%);
+    }
 }
 
 .login__title {
@@ -108,6 +183,7 @@
 .login__input-email,
 .login__input-password {
     width: 100%;
+    display: flex;
 }
 
 .login__input-email :deep(.q-field__control),
@@ -119,6 +195,7 @@
     transition: all 0.3s ease;
 }
 
+
 .login__form-button :deep(.q-btn) {
     border-radius: 12px;
     height: 48px;
@@ -127,6 +204,7 @@
     text-transform: none;
     background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
     transition: all 0.3s ease;
+    margin-top: 1rem;
 }
 
 .login__form-button :deep(.q-btn:hover) {
@@ -182,6 +260,25 @@
     margin-top: 1rem;
 }
 
+.login__extras--criar-conta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1.2rem;
+}
+
+.login__extras--criar-conta a {
+    color: #3498db;
+    transition: all 0.3s ease;
+}
+
+.login__extras--criar-conta a:hover {
+    color: #2c3e50;
+}
+
 .login__bnt--google {
     display: inline-flex;
     align-items: center;
@@ -208,6 +305,18 @@
     height: 24px;
 }
 
+.login__password-hide {
+    cursor: pointer;
+    position: absolute;
+    margin-right: 1rem;
+}   
+
+.login__password-show {
+    cursor: pointer;
+    position: absolute;
+    margin-right: 1rem;
+}
+
 @media (max-width: 768px) {
 
     .login__container {
@@ -216,7 +325,7 @@
     }
 
     .login__subtitle {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
     }
 
     .login__description {
@@ -231,5 +340,9 @@
 
     .login__bnt--google {
         width: 100%;
+    }
+
+    .login__right-side {
+        display: none;
     }
 }
