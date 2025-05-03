@@ -30,8 +30,6 @@
 
             <div class="login__form-item">
             <q-input class="login__input-password" outlined :type="isPwd ? 'password' : 'text'" v-model="inputPassword" label="Insira sua senha" 
-                autocomplete="password"
-                name="password"
                 title="Insira uma senha de 6 dígitos"
                 hint="Mínimo de 6 caracteres"
                 :rules="[val => !!val || 'Campo obrigatório']"
@@ -62,7 +60,7 @@
             </div>
 
             <div class="login__extras">
-                <span>Esqueceu sua senha? <router-link style="text-decoration: none;" to="Recuperar-Senha">Recupere aqui</router-link></span>
+                <router-link style="text-decoration: none;" to="Recuperar-Senha">Esqueceu sua senha?</router-link>
 
                 <div>
                     <q-checkbox @click="teste" v-model="valueLembrarMim" />
@@ -81,7 +79,7 @@
                 </button>
             </div>
             <div class="login__extras--criar-conta">
-              <span>Sem acesso? <router-link style="text-decoration: none;" to="Novo-Usuario">Crie agora</router-link></span>
+              <router-link style="text-decoration: none;" to="Novo-Usuario">Não possui conta? Cadastre-se</router-link>
             </div>
         </div>
 
