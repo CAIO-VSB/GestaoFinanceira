@@ -96,7 +96,8 @@
 
 .create-user__input-email :deep(.q-field__control),
 .create-user__input-password :deep(.q-field__control),
-.create-user__input-confirm-password :deep(.q-field__control) {
+.create-user__input-confirm-password :deep(.q-field__control),
+.create-user__input-user :deep(.q-field__control){
     border-radius: 12px;
     height: 55px;
     background: #f8fafc;

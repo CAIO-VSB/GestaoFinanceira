@@ -6,7 +6,12 @@
                     autocomplete="email"
                     name="email"
                     title="Insira seu e-mail aqui"
-                    :rules="[val => !!val || 'Campo obrigatório' ]"
+                    :rules="[val => !!val || 'Campo e-mail é obrigatório',
+                        val =>  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) || 'O formato do e-mail é inválido'
+                    ]"
+                    clearable
+                    lazy-rules
+                    ref="emailRef"
                 />
             </div>
 
@@ -36,25 +41,13 @@
     import { ControllerRecoverPassword } from '../controller/ControllerRecoverPassword';
 
     const inputEmail = ref("");
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const loading = ref(false);
+    const emailRef = ref(null)
 
     function validData(): boolean {
 
-        if (!regexEmail.test(inputEmail.value)) {
-            ElMessageBox.alert("Insira um e-mail válido", "Atenção", {
-                confirmButtonText: "Entendi",
-                callback: (action: string) => {
-                    if (action === "confirm") {
-                        ElMessage({
-                            type: "error",
-                            message: "Campo 'E-mail' inváldo. Tente novamente!",
-                            duration: 5000
-                        })
-                    }
-                }
-            })
-
+        if (!emailRef.value.validate()) {
+            console.log("Erro ao enviar solicitação")
             return false
         }
 

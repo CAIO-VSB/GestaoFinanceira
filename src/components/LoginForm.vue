@@ -9,7 +9,7 @@
             </div>
 
             <div class="login__welcome">
-                <h3 class="login__subtitle">Bem-vindo de volta</h3>
+                <h3 class="login__subtitle">Bem-vindo de volta!</h3>
                 <p class="login__description">Acesse sua conta para continuar</p>
             </div>
 
@@ -23,16 +23,25 @@
                 autocomplete="email"
                 name="email"
                 title="Insira um e-mail válido"
-                :rules="[val => !!val || 'Campo obrigatório']"
+                :rules="[val => !!val || 'Campo email é obrigatório',
+                    val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) || 'Formato do e-mail é inválido'
+                ]"
                 clearable
+                lazy-rules
+                ref="emailRef"
                 />
             </div>
 
             <div class="login__form-item">
             <q-input class="login__input-password" outlined :type="isPwd ? 'password' : 'text'" v-model="inputPassword" label="Insira sua senha" 
                 title="Insira uma senha de 6 dígitos"
-                hint="Mínimo de 6 caracteres"
-                :rules="[val => !!val || 'Campo obrigatório']"
+                hint="Info.: A senha deve conter no mínimo 6 caracteres"
+                :rules="[val => !!val || 'Campo senha é obrigatório',
+                    val => val.length > 6 || 'A senha não atende os requisitos'
+                ]"
+                lazy-rules
+                ref="passwordRef"
+                clearable
                 >
 
                 <template v-slot:append>
@@ -40,6 +49,7 @@
                     @click="isPwd = !isPwd"
                     />
                 </template>
+
             </q-input>   
             </div>
 
@@ -63,7 +73,7 @@
                 <router-link style="text-decoration: none;" to="Recuperar-Senha">Esqueceu sua senha?</router-link>
 
                 <div>
-                    <q-checkbox @click="teste" v-model="valueLembrarMim" />
+                    <q-checkbox v-model="valueLembrarMim" />
                     <span>Lembrar de mim</span>
                 </div>
             </div>
@@ -116,44 +126,27 @@
     const loading = ref(false)
     const inputEmail = ref("")
     const inputPassword = ref("")
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const valueLembrarMim = ref(null)
     const isPwd = ref(true)
+    const emailRef = ref(null)
+    const passwordRef = ref(null)
 
-    function teste() {
-        alert("Testando 123")
-    }
 
     function validData(): boolean {
 
-        if (!inputEmail.value.trim() && !inputPassword.value.trim()) {
-            ElMessageBox.alert("Verifique os campos e tente novamente", "Atenção", {
-                confirmButtonText: "Entendi",
-                callback: (action: string) => {
-                    if (action === "confirm") {
-                        ElMessage({
-                            type: "warning",
-                            message: "Campo obrigatório vazio",
-                            duration: 5000
-                        })
-                    }
-                }
-            })
+        let isValid = true
 
-            return false
+        if (!emailRef.value.validate()) {
+            console.log("E-mail inválido")
+            isValid = false
         }
 
-        if (!regexEmail.test(inputEmail.value)) {
-            ElMessageBox.alert("Insira um e-mail válido. Ex.: exemplo@gmail.com")       
-            return false
+        if (!passwordRef.value.validate()) {
+            console.log("E-mail inválido")
+            isValid = false
         }
 
-        if (inputPassword.value.length < 6) {
-            ElMessageBox.alert("A senha deve conter no mínimo 6 caracteres") 
-            return false
-        }
-
-        return true
+        return isValid
     }
   
     async function SubmitDados() {
@@ -200,7 +193,6 @@
                 console.log("Autenticação falhou")
                 ElMessageBox.alert("Erro ao validar com o google. Se o erro persistir, contato o suporte técnico.", "Alerta de erro")  
             }
-
         } catch (error) {
             console.log("Erro inesperado" + error)
             ElMessageBox.alert("Erro não programado. Se o erro persistir, contate o suporte técnico.", "Alerta de erro")  

@@ -422,7 +422,7 @@
         gap: 2rem;
         overflow: hidden;
         position: relative;
-        padding: 1.2rem;
+        padding: 1.3rem;
     }
 
     .login__right-side>h2 {
@@ -486,6 +486,7 @@
     .login__container {
         margin: 1rem;
         padding: 1.5rem;
+        border-radius: 20px;
     }
 
     .login__subtitle {

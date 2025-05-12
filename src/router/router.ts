@@ -6,9 +6,6 @@ import HomePage from "../views/HomePage/HomePage.vue";
 import NewUser from "../views/NewUser/NewUser.vue";
 import Teste from "../components/teste.vue";
 
-
-
-
 const routes: RouteRecordRaw[] = [
 
     {
@@ -32,7 +29,29 @@ const routes: RouteRecordRaw[] = [
     {
         path: "/Pagina-Principal",
         name: "Pagina-Principal",
-        component: HomePage
+        component: HomePage,
+        children: [
+            {
+                path: "Inicio",
+                name: "Inicio",
+                component: () => import('@/components/Inicio.vue')
+            },
+            {
+                path: "Resumo-Financeiro",
+                name: "Resumo-Financeiro",
+                component: () => import('@/components/ResumoFinanceiro.vue')
+            },
+            {
+                path: "Lancamentos",
+                name: "Lancamentos",
+                component: () => import('@/components/Lancamentos.vue')
+            },
+            {
+                path: "Configuracoes",
+                name: "Configuracoes",
+                component: () => import('@/components/Config.vue')
+            }
+        ]
     },
     {
         path: "/teste",

@@ -8,8 +8,6 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import '@quasar/extras/material-icons/material-icons.css';
 
-
-
 const app = createApp(App)
 
 app.use(Quasar, {

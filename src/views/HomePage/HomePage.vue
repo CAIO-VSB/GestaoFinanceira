@@ -1,14 +1,12 @@
 
 <script setup lang="ts">
     import SiderBar from '../../components/SiderBar.vue';
-    import ToolBar from '../../components/ToolBar.vue';
 </script>
 
 <template>
-    <main class="home__container">
-        <ToolBar />
+    <div class="home__container">
         <SiderBar />
-    </main>
+    </div>
 </template>
 
 <style src="./HomePage.css" scoped></style>
