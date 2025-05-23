@@ -1,6 +1,7 @@
 import { Usuario } from "../model/UserModel";
 import { UsuarioGoogle } from "../model/UserModelGoogle";
 
+
 export class ControllerLogin {
 
     static async signEmailESenha(email: string, senha: string): Promise<boolean> {

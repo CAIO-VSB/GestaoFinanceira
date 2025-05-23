@@ -5,6 +5,7 @@ import RecoverPassword from "../views/RecoverPassword/RecoverPassword.vue";
 import HomePage from "../views/HomePage/HomePage.vue";
 import NewUser from "../views/NewUser/NewUser.vue";
 import Teste from "../components/teste.vue";
+import Inicio from "../components/Inicio.vue";
 
 const routes: RouteRecordRaw[] = [
 
@@ -34,7 +35,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: "Inicio",
                 name: "Inicio",
-                component: () => import('@/components/Inicio.vue')
+                component: Inicio
             },
             {
                 path: "Resumo-Financeiro",
@@ -47,9 +48,9 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('@/components/Lancamentos.vue')
             },
             {
-                path: "Configuracoes",
-                name: "Configuracoes",
-                component: () => import('@/components/Config.vue')
+                path: "Cadastros",
+                name: "Cadastros",
+                component: () => import('@/components/Cadastros.vue')
             }
         ]
     },

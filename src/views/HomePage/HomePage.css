@@ -6,15 +6,58 @@
     box-sizing: border-box;
 }
 
-.sidebar__div-avatar {
+.home__label-itens {
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.home__label-icons {
+    font-size: 1.6rem;
+}
+
+.home__itens_active {
+    box-shadow: inset 0.1875rem 0 0 #37474F;
+}
+
+.home__dados-user {
+    background-color: #37474F;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 0.50rem;
-    background-color: #2c4c83;
+    gap: 10px;
+    cursor: pointer;
+    padding-top: 2rem;
 }
 
-.sidebar__main-avatar {
-    background-color: #2c4c83;
+.home__img-user:active {
+    transform: scale(1.4);
+}
+
+.home__name-user {
+    color: #ffff;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.90rem;
+}
+
+.home__bnt-more {
+    position: absolute;
+    right: 0;
+}
+
+.home__q-list-more-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.home__hover-btn-more-menu-main:hover {
+    background-color: #37474f46;
+    font-family: "Poppins", sans-serif;
+}
+
+.home__hover-btn-more-menu-main {
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }

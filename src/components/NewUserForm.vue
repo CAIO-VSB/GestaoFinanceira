@@ -155,7 +155,7 @@
 
             loading.value = true;
 
-            const result = await ControllerCreateUser.createuser(inputEmail.value, inputPassword.value)
+            const result = await ControllerCreateUser.createuser(inputUser.value, inputEmail.value, inputPassword.value)
 
             if (result) {
                 ElMessageBox.alert("Conta criada com sucesso", "Sucesso")

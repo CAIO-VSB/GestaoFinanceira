@@ -1,89 +1,119 @@
 <script type="ts" setup>
     import { ref } from 'vue';
+    import { useSearchUser } from '../composable/UserDataComposable'
 
     const drawer = ref(false)
     const miniState = ref(false)
+    const activeItem = ref("")
+
+    const { userData, Loading } = useSearchUser()
+
+
+    function Sair() {
+      alert("Saindo com sucesso")
+    }
 
 </script>
 
 <template>
-     <div>
-    <q-layout view="lHh Lpr lff" container style="height: 100vh" class="shadow-2 rounded-borders">
-      <q-header elevated style="background-color: #2c4c83;">
-        <q-toolbar>
+   <div class="home__container-main">
+    <q-layout view="hHh Lpr lff" container style="height: 100vh;" >
+      <q-header elevated>
+        <q-toolbar style="background-color: #37474F;">
+          <q-btn title="Recolher ou expandir menu" flat @click="drawer = !drawer" round dense icon="menu" />
+          <q-btn title="Mais opções" class="home__bnt-more" flat round dense icon="more_vert">
+            <q-menu
+          transition-show="flip-right"
+          transition-hide="flip-left"
+        >
+          <q-list style="min-width: 120px" class="home__q-list-more-menu">
+            <q-item class="home__hover-btn-more-menu-main" clickable @click="Sair" style="cursor: pointer;">
+              <q-item-section style="display: flex; flex-direction: row; gap: 20px; align-items: center;">Sair
+                <q-icon name="logout" />
+              </q-item-section>
+            </q-item>
+            <q-item class="home__hover-btn-more-menu-main" clickable style="cursor: pointer;">
+              <q-item-section>Meus dados</q-item-section>
+            </q-item>
+            <q-separator />
+          </q-list>
+        </q-menu>
+          </q-btn>
           <q-toolbar-title>Gerenciamento Financeiro</q-toolbar-title>
-          <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         </q-toolbar>
       </q-header>
-
       <q-drawer
         v-model="drawer"
         show-if-above
         :width="300"
-        :breakpoint="400"
+        :breakpoint="500"
+        elevated
+        :to="{name: 'Inicio'}"
+        style="overflow: hidden !important;"
       >
-        <q-scroll-area  style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
-          <q-list padding>
-            <q-item :to="{name: 'Inicio'}" clickable exact v-ripple>
+      <div class="home__dados-user">
+        <div class="home__img-user">
+          <q-avatar size="130px" font-size="55px" color="teal" text-color="white">
+            <img src="/src/assets/mili.webp" alt="">
+          </q-avatar>
+        </div>
+        <div class="home__name-user">
+          {{ userData?.nome }}
+        </div>
+      </div>
+        <q-scroll-area class="fit">
+          <q-list padding >
+            <q-item @click="activeItem = 'Inicio'" :class="{home__itens_active: activeItem === 'Inicio'}" :to="{name: 'Inicio'}" v-ripple>
               <q-item-section avatar>
-                <q-icon name="home" />
+                <q-icon name="home" class="home__label-icons"/>
               </q-item-section>
 
-              <q-item-section>
-                Home
+              <q-item-section class="home__label-itens">
+                Início
               </q-item-section>
             </q-item>
 
-            <q-item :to="{name: 'Resumo-Financeiro'}"  exact clickable v-ripple>
+            <q-item @click="activeItem = 'Cadastros'" :class="{home__itens_active: activeItem === 'Cadastros'}" :to="{name: 'Cadastros'}" v-ripple>
               <q-item-section avatar>
-                <q-icon name="monitoring" />
+                <q-icon name="add_circle" class="home__label-icons"/>
               </q-item-section>
 
-              <q-item-section>
-                Resumo Financeiro
+              <q-item-section class="home__label-itens">
+                Cadastros
               </q-item-section>
             </q-item>
 
-            <q-item :to="{name: 'Lancamentos'}" clickable exact v-ripple>
+            <q-item @click="activeItem = 'Lancamentos'" :class="{home__itens_active: activeItem === 'Lancamentos'}" :to="{name: 'Lancamentos'}" v-ripple>
               <q-item-section avatar>
-                <q-icon name="add_card" />
+                <q-icon name="add_card" class="home__label-icons"/>
               </q-item-section>
 
-              <q-item-section>
-                Lancamentos
+              <q-item-section class="home__label-itens">
+                Lançamentos
               </q-item-section>
             </q-item>
 
-            <q-item :to="{name: 'Configuracoes'}" clickable exact v-ripple>
+            <q-item @click="activeItem = 'Resumo'" :class="{home__itens_active: activeItem === 'Resumo'}" :to="{name: 'Resumo-Financeiro'}" v-ripple>
               <q-item-section avatar>
-                <q-icon name="settings" />
+                <q-icon name="insert_chart" class="home__label-icons"/>
               </q-item-section>
 
-              <q-item-section>
-                Configurações
+              <q-item-section class="home__label-itens">
+                Resumo financeiro
               </q-item-section>
             </q-item>
           </q-list>
         </q-scroll-area>
-
-        <q-img class="absolute-top sidebar__main-avatar" style="height: 150px">
-          <div class="absolute-bottom bg-transparent sidebar__div-avatar">
-            <q-avatar size="65px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-            </q-avatar>
-            <div class="text-weight-bold">Nome do usuário</div>
-            <div>E-mail dele</div>
-          </div>
-        </q-img>
       </q-drawer>
 
       <q-page-container>
         <q-page padding>
-            <router-view></router-view>
+          <router-view></router-view>
         </q-page>
       </q-page-container>
     </q-layout>
   </div>
 </template>
+
 
 <style src="/src/views/HomePage/HomePage.css" scoped></style>

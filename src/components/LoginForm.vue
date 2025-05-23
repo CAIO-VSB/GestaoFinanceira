@@ -29,6 +29,7 @@
                 clearable
                 lazy-rules
                 ref="emailRef"
+                @keyup.enter="LoginEnter"
                 />
             </div>
 
@@ -42,6 +43,7 @@
                 lazy-rules
                 ref="passwordRef"
                 clearable
+                @keyup.enter="LoginEnter"
                 >
 
                 <template v-slot:append>
@@ -72,10 +74,6 @@
             <div class="login__extras">
                 <router-link style="text-decoration: none;" to="Recuperar-Senha">Esqueceu sua senha?</router-link>
 
-                <div>
-                    <q-checkbox v-model="valueLembrarMim" />
-                    <span>Lembrar de mim</span>
-                </div>
             </div>
 
             <div class="login__extras--title-outras-formas">
@@ -83,7 +81,7 @@
             </div>
 
             <div class="login__extras--goolge">
-                <button @click="SubmitGoogle" type="button" class="login__bnt--google">
+                <button @click="SubmitGoogle"   @keyup.enter="LoginEnter" type="button" class="login__bnt--google">
                     <img class="login__img--goolge" src="/src/assets/google-icon.svg">
                     <span>Google</span>
                 </button>
@@ -117,20 +115,27 @@
 </template>
 
 <script setup lang="ts">
+
     import { ref } from 'vue'
-    import { ElMessageBox, ElMessage} from 'element-plus'
+    import { ElMessageBox} from 'element-plus'
     import router from "../router/router"
     import { ControllerLogin } from '../controller/ControllerLogin'
-
+    import { useSearchUser } from '../composable/UserDataComposable'
+ 
 
     const loading = ref(false)
     const inputEmail = ref("")
     const inputPassword = ref("")
-    const valueLembrarMim = ref(null)
     const isPwd = ref(true)
     const emailRef = ref(null)
     const passwordRef = ref(null)
 
+    const { userData, Loading, SearchUser } = useSearchUser()
+
+    async function LoginEnter() {
+        SubmitDados()
+        await SearchUser(inputEmail.value, inputPassword.value)
+    }
 
     function validData(): boolean {
 
@@ -154,6 +159,7 @@
         const isValidData = validData();
 
         if (!isValidData) {
+
             return;
         }
 
@@ -161,12 +167,17 @@
             loading.value = true;
 
             const result = await ControllerLogin.signEmailESenha(inputEmail.value, inputPassword.value) 
+            
+            await SearchUser(inputEmail.value, inputPassword.value)
 
            if (result) {
-                router.push({name: "Pagina-Principal"})
+
+            router.push({name: "Pagina-Principal"})
+
+        
            } else {
-                alert("Usuário não encontrado")
-                console.log("Usuário não encontrado...")
+
+                ElMessageBox.alert("Usuário não encontrado no banco de dados.", "Atenção")
            }
 
         } catch (error) {
@@ -187,19 +198,17 @@
             const result = await ControllerLogin.signGoolge()
 
             if (result) {
-                console.log("Autenticação bem-sucedida, redirecionado...")
                 router.push({name: "Pagina-Principal"})
             } else {
-                console.log("Autenticação falhou")
                 ElMessageBox.alert("Erro ao validar com o google. Se o erro persistir, contato o suporte técnico.", "Alerta de erro")  
             }
         } catch (error) {
-            console.log("Erro inesperado" + error)
             ElMessageBox.alert("Erro não programado. Se o erro persistir, contate o suporte técnico.", "Alerta de erro")  
         }finally {
             loading.value = false
         }
     }
+  
 </script>
 
 <style src="/src/views/PagLogin/PagLogin.css" scoped>

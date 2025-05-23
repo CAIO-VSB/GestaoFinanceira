@@ -1,5 +1,6 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
+import axios from "axios";
 
 
 export class UsuarioGoogle {
@@ -10,9 +11,17 @@ export class UsuarioGoogle {
 
         try {
 
-            await signInWithPopup(auth, provider);
+            const result = await signInWithPopup(auth, provider);
+
+            const token = await result.user.getIdToken()
+
+            const response = await axios.post("http://localhost:4000/login/validar-token", {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
           
-            return true;
+            return response.data.autenticado === true;
 
         } catch (error: any) {
 

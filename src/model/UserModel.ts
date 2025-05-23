@@ -1,7 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
-
-
+import axios from "axios"
 
 export class Usuario {
 
@@ -13,7 +12,7 @@ export class Usuario {
         this.senha = senha;
     } 
 
-    public getEmail(): string {
+    public getEmail(): string { 
         return this.email;
     }
 
@@ -25,9 +24,17 @@ export class Usuario {
 
         try {
             
-            await signInWithEmailAndPassword(auth, this.email, this.senha);
+           const userCredential =  await signInWithEmailAndPassword(auth, this.email, this.senha);
+           
+           const token = await userCredential.user.getIdToken()
 
-            return true;
+           const response = await axios.post("http://localhost:4000/login/validar-token", {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+           })
+
+            return response.data.autenticado === true;
 
         } catch (error) {
 

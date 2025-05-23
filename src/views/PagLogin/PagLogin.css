@@ -50,7 +50,7 @@
     width: 100%;
     max-width: 700px;
     height: auto;
-    min-height: 769px;
+    min-height: 753px;
     border-radius: 0 20px 20px 0;
     background: linear-gradient(135deg, #f8faff 0%, #f1f5ff 100%);
     display: flex;
@@ -214,7 +214,7 @@
 
 .login__extras {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-top: 1.4rem;
     font-size: 0.95rem;
@@ -487,6 +487,23 @@
         margin: 1rem;
         padding: 1.5rem;
         border-radius: 20px;
+    }
+
+    
+    .login__right-side {
+        z-index: 2;
+        width: 100%;
+        max-width: 700px;
+        height: auto;
+        min-height: 520px;
+        border-radius: 0 20px 20px 0;
+        background: linear-gradient(135deg, #f8faff 0%, #f1f5ff 100%);
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        overflow: hidden;
+        position: relative;
+        padding: 1.3rem;
     }
 
     .login__subtitle {
